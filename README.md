@@ -23,5 +23,8 @@ A simple service booking web application where users can connect with local serv
 * Authentication (JWT)
 * Convert to React
 
-5) Author
+7) ScreenShot of layout on browser
+8) 
+
+6) Author
 Chirag Sharma
