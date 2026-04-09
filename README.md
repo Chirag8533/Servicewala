@@ -24,7 +24,7 @@ A simple service booking web application where users can connect with local serv
 * Convert to React
 
 7) ScreenShot of layout on browser
-8) 
+   assets
 
 6) Author
 Chirag Sharma
