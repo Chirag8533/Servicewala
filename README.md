@@ -23,9 +23,13 @@ A simple service booking web application where users can connect with local serv
 * Authentication (JWT)
 * Convert to React
 
-7) ScreenShot of layout on browser
-   LOGIN:- ./assets/login.png
+5)Screenshots
+Login Page
+![Login](./assets/login.png)
+Dashboard
+![Dashboard](./assets/dashboard.png)
+ Signup
+![Signup](./assets/signin.png)
    
-
 6) Author
 Chirag Sharma
