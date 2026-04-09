@@ -29,7 +29,7 @@ Login Page
 Dashboard
 ![Dashboard](./assets/dashboard.png)
  Signup
-![Signup](./assets/signin.png)
+![Signin](./assets/signin.png)
    
 6) Author
 Chirag Sharma
