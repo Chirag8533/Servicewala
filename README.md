@@ -28,8 +28,8 @@ Login Page
 ![Login](./assets/login.png)
 Dashboard
 ![Dashboard](./assets/dashboard.png)
- Signup
-![Signin](./assets/signin.png)
+ ### 🧾 Signup
+![Signup](./assets/Signup.png)
    
 6) Author
 Chirag Sharma
