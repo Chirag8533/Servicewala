@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ServiceWala — Book Trusted Workers</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+  <div class="logo" onclick="navigate('home')" style="cursor:pointer;">Service<span>Wala</span></div>
+  <div class="nav-links">
+    <a href="#" onclick="navigate('workers');return false;">Browse workers</a>
+    <a href="#" onclick="navigate('register');return false;">Register as worker</a>
+    <div id="nav-auth" style="display:flex;gap:10px;">
+      <button class="btn-out" onclick="navigate('login')">Login</button>
+      <button class="btn-or" onclick="navigate('register')">Sign up</button>
+    </div>
+    <div id="nav-user" style="display:none;align-items:center;gap:12px;">
+      <span style="font-size:13px;color:var(--text-muted);">Hi, <strong id="nav-user-name"></strong></span>
+      <button class="btn-out" onclick="navigate(state.currentUser?.role === 'worker' ? 'worker-dashboard' : 'customer-dashboard')">Dashboard</button>
+      <button class="btn-or" onclick="doLogout()">Logout</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== PAGE: HOME ===== -->
+<div id="page-home" class="page">
+  <div class="hero">
+    <h1>Book trusted workers near you</h1>
+    <p>Carpenters, painters, plumbers, electricians &amp; more — at your doorstep</p>
+    <div class="search-box">
+      <span style="font-size:16px;color:#9CA3AF;">&#128269;</span>
+      <input id="home-search" type="text" placeholder="Search carpenters, painters, plumbers..." />
+      <select id="home-city">
+        <option value="">All cities</option>
+        <option>Noida</option>
+        <option>Delhi</option>
+        <option>Ghaziabad</option>
+        <option>Greater Noida</option>
+      </select>
+      <button onclick="homeSearch()">Search</button>
+    </div>
+  </div>
+
+  <div class="section" style="background:var(--white);border-bottom:1px solid var(--border);">
+    <h2 class="section-title">Browse by category</h2>
+    <div class="categories-grid">
+      <div class="cat-card" onclick="state.filterSkill='Carpenter';navigate('workers')">
+        <div class="cat-icon" style="background:#FFF7ED;">&#128296;</div>
+        <h3>Carpenter</h3>
+        <p>124 workers</p>
+      </div>
+      <div class="cat-card" onclick="state.filterSkill='Painter';navigate('workers')">
+        <div class="cat-icon" style="background:#EFF6FF;">&#127912;</div>
+        <h3>Painter</h3>
+        <p>98 workers</p>
+      </div>
+      <div class="cat-card" onclick="state.filterSkill='Plumber';navigate('workers')">
+        <div class="cat-icon" style="background:#F0FDF4;">&#128295;</div>
+        <h3>Plumber</h3>
+        <p>87 workers</p>
+      </div>
+      <div class="cat-card" onclick="state.filterSkill='Electrician';navigate('workers')">
+        <div class="cat-icon" style="background:#FAEEDA;">&#9889;</div>
+        <h3>Electrician</h3>
+        <p>76 workers</p>
+      </div>
+      <div class="cat-card" onclick="state.filterSkill='Labour';navigate('workers')">
+        <div class="cat-icon" style="background:#EEEDFE;">&#128119;</div>
+        <h3>Labour</h3>
+        <p>210 workers</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <h2 class="section-title" style="margin:0;">Featured workers</h2>
+      <a href="#" onclick="navigate('workers');return false;" style="font-size:13px;color:var(--or);">View all &rarr;</a>
+    </div>
+    <div class="workers-grid" id="featured-workers"></div>
+  </div>
+
+  <div style="background:var(--or);padding:48px 32px;text-align:center;">
+    <h2 style="font-size:24px;font-weight:700;color:#fff;margin-bottom:8px;">Are you a skilled worker?</h2>
+    <p style="color:rgba(255,255,255,0.85);margin-bottom:20px;">Join ServiceWala and get booking requests directly from customers near you.</p>
+    <button class="btn-out" style="background:#fff;color:var(--or);border:none;padding:11px 28px;font-size:14px;border-radius:8px;cursor:pointer;" onclick="navigate('register')">Register as a worker &rarr;</button>
+  </div>
+
+  <div class="section" style="background:var(--white);">
+    <h2 class="section-title" style="text-align:center;">How it works</h2>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:700px;margin:0 auto;text-align:center;">
+      <div>
+        <div style="font-size:36px;margin-bottom:10px;">&#128269;</div>
+        <h3 style="font-size:14px;font-weight:600;margin-bottom:6px;">Search &amp; filter</h3>
+        <p style="font-size:13px;color:var(--text-muted);">Find workers by skill, city, and rating.</p>
+      </div>
+      <div>
+        <div style="font-size:36px;margin-bottom:10px;">&#128197;</div>
+        <h3 style="font-size:14px;font-weight:600;margin-bottom:6px;">Book a slot</h3>
+        <p style="font-size:13px;color:var(--text-muted);">Choose date, time and describe your work.</p>
+      </div>
+      <div>
+        <div style="font-size:36px;margin-bottom:10px;">&#9989;</div>
+        <h3 style="font-size:14px;font-weight:600;margin-bottom:6px;">Get it done</h3>
+        <p style="font-size:13px;color:var(--text-muted);">Worker arrives and completes the job.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <p>&copy; 2025 ServiceWala &nbsp;|&nbsp; Book trusted workers online</p>
+  </footer>
+</div>
+
+<!-- ===== PAGE: WORKERS LIST ===== -->
+<div id="page-workers" class="page page-hidden">
+  <div style="background:var(--white);padding:16px 32px;border-bottom:1px solid var(--border);">
+    <div class="search-box" style="max-width:500px;margin-bottom:14px;">
+      <span style="font-size:16px;color:#9CA3AF;">&#128269;</span>
+      <input type="text" id="workers-search" placeholder="Search workers..." oninput="state.searchQuery=this.value;applyFilters()" />
+    </div>
+    <div class="filter-bar">
+      <div class="filter-chip active" data-skill="all" onclick="setFilter('filterSkill','all')">All</div>
+      <div class="filter-chip" data-skill="Carpenter" onclick="setFilter('filterSkill','Carpenter')">Carpenter</div>
+      <div class="filter-chip" data-skill="Painter" onclick="setFilter('filterSkill','Painter')">Painter</div>
+      <div class="filter-chip" data-skill="Plumber" onclick="setFilter('filterSkill','Plumber')">Plumber</div>
+      <div class="filter-chip" data-skill="Electrician" onclick="setFilter('filterSkill','Electrician')">Electrician</div>
+      <div class="filter-chip" data-skill="Labour" onclick="setFilter('filterSkill','Labour')">Labour</div>
+      <div class="filter-chip" onclick="setFilter('filterAvail', state.filterAvail==='available'?'all':'available');this.classList.toggle('active')">Available only</div>
+      <div class="filter-chip" onclick="setFilter('filterRating', state.filterRating==='4'?'all':'4');this.classList.toggle('active')">4+ Rating</div>
+      <select id="sort-select" onchange="applyFilters()">
+        <option value="rating">Sort: Rating</option>
+        <option value="price-low">Price: Low to high</option>
+        <option value="price-high">Price: High to low</option>
+        <option value="exp">Experience</option>
+      </select>
+    </div>
+  </div>
+  <div class="section" id="workers-list"></div>
+</div>
+
+<!-- ===== PAGE: WORKER PROFILE ===== -->
+<div id="page-worker-profile" class="page page-hidden">
+  <div style="padding:12px 32px;background:var(--white);border-bottom:1px solid var(--border);">
+    <button onclick="history.back() || navigate('workers')" style="background:none;border:none;color:var(--or);cursor:pointer;font-size:13px;">&larr; Back</button>
+  </div>
+  <div id="profile-content"></div>
+</div>
+
+<!-- ===== PAGE: BOOKING ===== -->
+<div id="page-booking" class="page page-hidden">
+  <div style="padding:12px 32px;background:var(--white);border-bottom:1px solid var(--border);">
+    <button onclick="navigate('worker-profile')" style="background:none;border:none;color:var(--or);cursor:pointer;font-size:13px;">&larr; Back to profile</button>
+  </div>
+  <div class="section">
+    <div style="max-width:520px;margin:0 auto;">
+      <h2 style="font-size:18px;font-weight:700;margin-bottom:18px;">Confirm your booking</h2>
+      <div id="booking-worker-info"></div>
+      <div class="card">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Service type *</label>
+            <select id="booking-service">
+              <option value="">Select service</option>
+              <option>Furniture making</option>
+              <option>Door fitting</option>
+              <option>Flooring</option>
+              <option>Repair work</option>
+              <option>Interior painting</option>
+              <option>Exterior painting</option>
+              <option>Pipe fitting</option>
+              <option>Leakage repair</option>
+              <option>Wiring</option>
+              <option>General labour</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Duration *</label>
+            <select id="booking-duration" onchange="updateBookingTotal()">
+              <option value="1">1 hour</option>
+              <option value="2" selected>2 hours</option>
+              <option value="4">4 hours</option>
+              <option value="8">Full day (8 hrs)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Date *</label>
+            <input type="date" id="booking-date" />
+          </div>
+          <div class="form-group">
+            <label>Time *</label>
+            <input type="time" id="booking-time" value="10:00" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Address *</label>
+          <input type="text" id="booking-address" placeholder="Enter your full address" />
+        </div>
+        <div class="form-group">
+          <label>Work description</label>
+          <textarea id="booking-desc" placeholder="Describe what needs to be done..."></textarea>
+        </div>
+        <hr class="divider-line" />
+        <div style="display:flex;justify-content:space-between;font-size:13px;color:var(--text-muted);margin-bottom:6px;">
+          <span>Rate</span><span id="booking-rate">&#8377;0/hr</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:14px;font-weight:600;margin-bottom:18px;">
+          <span>Estimated total</span><span style="color:var(--or);" id="booking-total">&#8377;0</span>
+        </div>
+        <button class="btn-primary" onclick="submitBooking()">Confirm booking</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PAGE: CUSTOMER DASHBOARD ===== -->
+<div id="page-customer-dashboard" class="page page-hidden">
+  <div class="dash-header">
+    <div class="dash-user">
+      <div class="avatar" style="background:var(--or-light);color:var(--or-dark);" id="cust-avatar">CJ</div>
+      <div>
+        <p style="font-weight:600;" id="cust-name">Chirag Jaiswal</p>
+        <p style="font-size:12px;color:var(--text-muted);">Customer account</p>
+      </div>
+    </div>
+    <button class="btn-or" onclick="navigate('workers')">Book a worker</button>
+  </div>
+  <div class="tab-bar">
+    <div class="tab-item active" data-tab="bookings">My bookings</div>
+    <div class="tab-item" data-tab="profile">Profile</div>
+  </div>
+  <div id="customer-dash-content"></div>
+</div>
+
+<!-- ===== PAGE: WORKER DASHBOARD ===== -->
+<div id="page-worker-dashboard" class="page page-hidden">
+  <div class="dash-header">
+    <div class="dash-user">
+      <div class="avatar" style="background:var(--or-light);color:var(--or-dark);">RK</div>
+      <div>
+        <p style="font-weight:600;">Ramesh Kumar</p>
+        <p style="font-size:12px;color:var(--text-muted);">Carpenter</p>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span style="font-size:12px;color:var(--text-muted);">Status:</span>
+      <span class="badge badge-available">Available</span>
+    </div>
+  </div>
+  <div class="tab-bar">
+    <div class="tab-item active" data-tab="bookings">Bookings</div>
+    <div class="tab-item" data-tab="earnings">Earnings</div>
+    <div class="tab-item" data-tab="profile">Profile</div>
+  </div>
+  <div id="worker-dash-content"></div>
+</div>
+
+<!-- ===== PAGE: LOGIN ===== -->
+<div id="page-login" class="page page-hidden">
+  <div class="auth-container">
+    <div class="auth-card">
+      <h2>Welcome back</h2>
+      <p>Login to your ServiceWala account</p>
+      <div class="form-group">
+        <label>Email address</label>
+        <input type="email" id="login-email" placeholder="you@example.com" />
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="login-pass" placeholder="Enter password" />
+      </div>
+      <div class="form-group">
+        <label>Login as</label>
+        <select id="login-role">
+          <option value="customer">Customer</option>
+          <option value="worker">Worker</option>
+        </select>
+      </div>
+      <button class="btn-primary" onclick="doLogin()">Login</button>
+      <div class="divider" style="margin-top:16px;">or</div>
+      <p style="text-align:center;font-size:13px;margin-top:12px;color:var(--text-muted);">
+        Don't have an account? <a href="#" onclick="navigate('register');return false;" style="color:var(--or);font-weight:500;">Sign up</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PAGE: REGISTER ===== -->
+<div id="page-register" class="page page-hidden">
+  <div class="auth-container">
+    <div class="auth-card">
+      <h2>Create account</h2>
+      <p>Join ServiceWala today — it's free!</p>
+      <div class="role-select">
+        <div class="role-btn active" data-role="customer">
+          <div class="icon">&#128100;</div>
+          <h4>Customer</h4>
+          <p>I want to book workers</p>
+        </div>
+        <div class="role-btn" data-role="worker">
+          <div class="icon">&#128296;</div>
+          <h4>Worker</h4>
+          <p>I want to get hired</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Full name</label>
+        <input type="text" id="reg-name" placeholder="Your full name" />
+      </div>
+      <div class="form-group">
+        <label>Email address</label>
+        <input type="email" id="reg-email" placeholder="you@example.com" />
+      </div>
+      <div class="form-group">
+        <label>Phone number</label>
+        <input type="tel" id="reg-phone" placeholder="+91 98765 43210" />
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="reg-pass" placeholder="Create a password" />
+      </div>
+      <button class="btn-primary" onclick="doRegister()">Create account</button>
+      <p style="text-align:center;font-size:13px;margin-top:14px;color:var(--text-muted);">
+        Already have an account? <a href="#" onclick="navigate('login');return false;" style="color:var(--or);font-weight:500;">Login</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== REVIEW MODAL ===== -->
+<div class="modal-overlay" id="review-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('review-modal')">&times;</button>
+    <h2>Write a review</h2>
+    <input type="hidden" id="review-worker-id" />
+    <p style="font-size:13px;color:var(--text-muted);margin-bottom:12px;">How was your experience?</p>
+    <div class="star-rating">
+      <span onclick="setReviewRating(1)">&#9733;</span>
+      <span onclick="setReviewRating(2)">&#9733;</span>
+      <span onclick="setReviewRating(3)">&#9733;</span>
+      <span onclick="setReviewRating(4)">&#9733;</span>
+      <span onclick="setReviewRating(5)">&#9733;</span>
+    </div>
+    <div class="form-group">
+      <label>Comment (optional)</label>
+      <textarea id="review-comment" placeholder="Tell others about your experience..."></textarea>
+    </div>
+    <button class="btn-primary" onclick="submitReview()">Submit review</button>
+  </div>
+</div>
+
+<!-- ===== TOAST ===== -->
+<div class="toast" id="toast"></div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
