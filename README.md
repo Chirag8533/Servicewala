@@ -24,7 +24,8 @@ A simple service booking web application where users can connect with local serv
 * Convert to React
 
 7) ScreenShot of layout on browser
-   assets
+   LOGIN:- ./assets/login.png
+   
 
 6) Author
 Chirag Sharma
