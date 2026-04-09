@@ -6,7 +6,7 @@ A simple **service booking web app** where users can connect with local service 
 
 ## 🌐 Live Demo
 
-👉 https://Chirag8533.github.io/servicewala
+👉https://chirag8533.github.io/Servicewala/
 
 ---
 
