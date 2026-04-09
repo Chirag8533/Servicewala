@@ -38,8 +38,6 @@ A simple **service booking web app** where users can connect with local service 
 
 ![Dashboard](./assets/dashboard.png)
 
-### 🧾 Signup
-
 ![Signup](./assets/signup.png)
 
 ---
