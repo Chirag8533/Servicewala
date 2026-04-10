@@ -1,6 +1,6 @@
 # 🚀 ServiceWala
 
-A simple **service booking web app** where users can connect with local service providers.
+A simple **service booking web app** where users can connect with local service providers. 
 
 ---
 
