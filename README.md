@@ -10,7 +10,7 @@ A simple **service booking web app** where users can connect with local service 
 
 ---
 
-## ✨ Features
+## ✨ Features 
 
 * 🔐 User Login & Registration
 * 📊 Worker Dashboard
